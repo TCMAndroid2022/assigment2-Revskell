@@ -15,13 +15,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        editText= findViewById(R.id.et_name);
+        editText = findViewById(R.id.et_name);
     }
 
     public void login(View view) {
-        String username=editText.getText().toString();
-        Intent intent = new Intent(this, Game.class);
-        intent.putExtra("username",username);
+        String username = editText.getText().toString();
+        if(username == null) username = "";
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 }
