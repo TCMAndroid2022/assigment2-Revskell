@@ -1,8 +1,6 @@
 package cat.tecnocampus.mobileapps.practica2.JoelRamosCano.SergioSanchezGonzalez.GerardTorrentCastell;
 
-import android.app.Activity;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,12 +14,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 
 public class GameActivity extends AppCompatActivity
@@ -37,12 +31,16 @@ public class GameActivity extends AppCompatActivity
     int score=0;
     int letterCount=0;
 
+    private Game game;
+    private RecordLab recordLab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        username = getIntent().getStringExtra("username");
+        game = getIntent().getParcelableExtra("game");
         setContentView(R.layout.activity_game);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         editText = findViewById(R.id.solveWord);
         tvWord = findViewById(R.id.word);
         // finalWord=getFinalWord();
@@ -53,9 +51,35 @@ public class GameActivity extends AppCompatActivity
 
     }
 
-    void solve(){
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // desarrollar
+    }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // desarrollar
+    }
 
+    private void solve(){
+
+    }
+
+    private void winGame() {
+
+        Record record = new Record();
+        RecordLab recordLab = new RecordLab(this);
+
+        record.setPlayer(game.getPlayerNickname());
+        record.setScore(score);
+
+        recordLab.addGame(record);
+        recordLab.addPlayedGame(record);
+
+        Intent mainMenu = new Intent(this, MainActivity.class);
+        startActivity(mainMenu);
     }
 
     /*
