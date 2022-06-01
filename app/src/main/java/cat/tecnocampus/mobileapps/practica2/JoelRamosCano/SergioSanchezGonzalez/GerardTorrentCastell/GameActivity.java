@@ -76,7 +76,6 @@ public class GameActivity extends AppCompatActivity
         record.setScore(score);
 
         recordLab.addGame(record);
-        recordLab.addPlayedGame(record);
 
         Intent mainMenu = new Intent(this, MainActivity.class);
         startActivity(mainMenu);

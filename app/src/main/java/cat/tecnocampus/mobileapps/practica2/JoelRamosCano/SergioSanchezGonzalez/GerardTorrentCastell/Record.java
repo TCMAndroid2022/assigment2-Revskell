@@ -12,6 +12,7 @@ public class Record {
 
     public Record() {
         this.id = UUID.randomUUID().toString();
+        this.totalScore = 0;
     }
 
     @PrimaryKey
@@ -25,10 +26,15 @@ public class Record {
     @ColumnInfo(name = "record_score")
     public int score;
 
+    @ColumnInfo(name = "record_totalScore")
+    public int totalScore;
+
     @ColumnInfo(name = "record_nOfGames")
     public int nOfGames;
 
     public String getId() { return this.id; }
+
+    public int getScore() { return this.score; }
 
     public void setPlayer(String player) {
         this.player = player;
@@ -41,4 +47,6 @@ public class Record {
     public void setnOfGames(int nOfGames) {
         this.nOfGames = nOfGames;
     }
+
+    public void addTotalScore(int newScore) { this.totalScore += newScore; }
 }

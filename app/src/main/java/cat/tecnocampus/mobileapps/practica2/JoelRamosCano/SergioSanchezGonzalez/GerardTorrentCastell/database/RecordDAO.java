@@ -14,9 +14,15 @@ public interface RecordDAO {
     @Query("SELECT * FROM Record")
     List<Record> getGames();
 
+    @Query("SELECT * FROM Record WHERE record_id = :id")
+    List<Record> getGamesFromPlayer(String id);
+
     @Insert
     void addGame(Record record);
 
-    @Query("UPDATE Record SET record_nOfGames = record_nOfGames + 1 WHERE record_id = id") // no entiendo porque me da este error, hay que mirarlo
+    @Query("UPDATE Record SET record_nOfGames = record_nOfGames + 1 WHERE record_id = :id")
     void addPlayedGame(String id);
+
+    @Query("UPDATE Record SET record_totalScore = record_totalScore + :newScore WHERE record_id = :id")
+    void updateTotalScore(int newScore, String id);
 }
