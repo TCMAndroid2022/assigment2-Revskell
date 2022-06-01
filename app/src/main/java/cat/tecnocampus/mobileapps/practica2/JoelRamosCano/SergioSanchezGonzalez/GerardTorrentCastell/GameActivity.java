@@ -27,7 +27,7 @@ public class GameActivity extends AppCompatActivity
     String finalWord;
     String playerWord;
     String url= "https://palabras-aleatorias-public-api.herokuapp.com/random";
-    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+    // RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
     int score=0;
     int letterCount=0;
 
@@ -43,12 +43,13 @@ public class GameActivity extends AppCompatActivity
 
         editText = findViewById(R.id.solveWord);
         tvWord = findViewById(R.id.word);
-        // finalWord=getFinalWord();
-        playerWord="";
-        for(int i=0;i<finalWord.length();i++){
+        /*
+        finalWord = getFinalWord();
+        playerWord = "";
+        for(int i=0; i<finalWord.length(); i++){
             playerWord+="_";
         }
-
+        */
     }
 
     @Override
@@ -73,7 +74,7 @@ public class GameActivity extends AppCompatActivity
         RecordLab recordLab = new RecordLab(this);
 
         record.setPlayer(game.getPlayerNickname());
-        record.setScore(score);
+        record.addScore(score);
 
         recordLab.addGame(record);
 
@@ -110,7 +111,7 @@ public class GameActivity extends AppCompatActivity
                     }
                 }
         );
-        queue.add(stringRequest);
+        // queue.add(stringRequest);
     }
 
     public void submitWord(View view) {

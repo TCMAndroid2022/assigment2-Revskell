@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity(tableName = "Record")
@@ -13,6 +15,7 @@ public class Record {
     public Record() {
         this.id = UUID.randomUUID().toString();
         this.totalScore = 0;
+        this.scores = new ArrayList<Integer>();
     }
 
     @PrimaryKey
@@ -23,8 +26,8 @@ public class Record {
     @ColumnInfo(name = "record_player")
     public String player;
 
-    @ColumnInfo(name = "record_score")
-    public int score;
+    @ColumnInfo(name = "record_scores")
+    public List<Integer> scores; // mirar esto
 
     @ColumnInfo(name = "record_totalScore")
     public int totalScore;
@@ -34,14 +37,14 @@ public class Record {
 
     public String getId() { return this.id; }
 
-    public int getScore() { return this.score; }
+    public int getScore() { return this.scores.get(scores.size()); } // quizas hay alguna mejor forma de hacerlo
 
     public void setPlayer(String player) {
         this.player = player;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void addScore(int score) {
+        this.scores.add(score);
     }
 
     public void setnOfGames(int nOfGames) {

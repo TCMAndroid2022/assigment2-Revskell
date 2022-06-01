@@ -35,9 +35,13 @@ public class RecordLab {
     }
 
     public void addGame(Record record) {
-        this.recordDAO.addGame(record);
+
+        List<Record> playerList = this.recordDAO.getGamesFromPlayer(record.getId());
+
+        if(playerList == null) {
+            this.recordDAO.addGame(record);
+        }
         this.recordDAO.addPlayedGame(record.getId());
         this.recordDAO.updateTotalScore(record.getScore(), record.getId());
-        // hay que comprobar si existe el usuario en la database antes de todo esto
     }
 }

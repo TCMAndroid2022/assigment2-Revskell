@@ -11,7 +11,7 @@ import cat.tecnocampus.mobileapps.practica2.JoelRamosCano.SergioSanchezGonzalez.
 @Dao
 public interface RecordDAO {
 
-    @Query("SELECT * FROM Record")
+    @Query("SELECT * FROM Record ORDER BY record_totalScore") // mirar si es ascendiente
     List<Record> getGames();
 
     @Query("SELECT * FROM Record WHERE record_id = :id")
