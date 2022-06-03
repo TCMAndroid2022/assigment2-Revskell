@@ -4,12 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity(tableName = "Record")
@@ -18,6 +14,7 @@ public class Record {
     public Record() {
         this.id = UUID.randomUUID().toString();
         this.totalScore = 0;
+        this.nOfGames = 0;
         this.scores = new ArrayList<Integer>();
     }
 
@@ -50,10 +47,4 @@ public class Record {
     public void addScore(int score) {
         this.scores.add(score);
     }
-
-    public void setnOfGames(int nOfGames) {
-        this.nOfGames = nOfGames;
-    }
-
-    public void addTotalScore(int newScore) { this.totalScore += newScore; }
 }

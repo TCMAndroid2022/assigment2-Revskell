@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -22,8 +23,24 @@ public class MainActivity extends AppCompatActivity {
     public void login(View view) {
         String username = editText.getText().toString();
         if(username == null) username = "";
-        Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra("game", new Game(username));
-        startActivity(intent);
+        Intent gameIntent = new Intent(this, GameActivity.class);
+        gameIntent.putExtra("game", new Game(username));
+        startActivity(gameIntent);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.overflow, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.rankingButton) {
+            Intent rankingIntent = new Intent(this, RankingActivity.class);
+            startActivity(rankingIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

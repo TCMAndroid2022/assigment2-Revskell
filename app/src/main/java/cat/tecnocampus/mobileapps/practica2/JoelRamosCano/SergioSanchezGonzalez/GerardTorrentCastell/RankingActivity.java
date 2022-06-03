@@ -4,10 +4,11 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class RecordsActivity extends AppCompatActivity {
+public class RankingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
