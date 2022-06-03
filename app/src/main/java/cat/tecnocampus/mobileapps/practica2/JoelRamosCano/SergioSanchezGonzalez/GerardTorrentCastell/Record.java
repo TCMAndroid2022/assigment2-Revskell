@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -26,8 +29,9 @@ public class Record {
     @ColumnInfo(name = "record_player")
     public String player;
 
+    @TypeConverters(DataConverter.class)
     @ColumnInfo(name = "record_scores")
-    public List<Integer> scores; // mirar esto
+    public ArrayList<Integer> scores;
 
     @ColumnInfo(name = "record_totalScore")
     public int totalScore;
