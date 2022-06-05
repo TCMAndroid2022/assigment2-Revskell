@@ -1,5 +1,8 @@
 package cat.tecnocampus.mobileapps.practica2.JoelRamosCano.SergioSanchezGonzalez.GerardTorrentCastell;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -9,7 +12,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 @Entity(tableName = "Record")
-public class Record {
+public class Record implements Parcelable {
 
     public Record() {
         this.id = UUID.randomUUID().toString();
@@ -22,6 +25,13 @@ public class Record {
         this.player = player;
         this.totalScore = totalScore;
         this.nOfGames = nOfGames;
+    }
+
+    protected Record(Parcel in) {
+        id = in.readString();
+        player = in.readString();
+        totalScore = in.readInt();
+        nOfGames = in.readInt();
     }
 
     @PrimaryKey
@@ -42,6 +52,14 @@ public class Record {
     @ColumnInfo(name = "record_nOfGames")
     public int nOfGames;
 
+    public static final Creator<Record> CREATOR = new Creator<Record>() {
+        @Override
+        public Record createFromParcel(Parcel in) { return new Record(in); }
+
+        @Override
+        public Record[] newArray(int size) { return new Record[size]; }
+    };
+
     public String getId() { return this.id; }
 
     public int getScore() { return this.scores.get(scores.size()); } // quizas hay alguna mejor forma de hacerlo
@@ -60,5 +78,16 @@ public class Record {
 
     public void addScore(int score) {
         this.scores.add(score);
+    }
+
+    @Override
+    public int describeContents() { return 0; }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(player);
+        parcel.writeInt(totalScore);
+        parcel.writeInt(nOfGames);
     }
 }

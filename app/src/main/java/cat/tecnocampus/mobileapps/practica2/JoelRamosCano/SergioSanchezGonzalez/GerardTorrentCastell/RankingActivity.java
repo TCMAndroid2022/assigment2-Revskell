@@ -1,7 +1,9 @@
 package cat.tecnocampus.mobileapps.practica2.JoelRamosCano.SergioSanchezGonzalez.GerardTorrentCastell;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,8 @@ public class RankingActivity extends AppCompatActivity {
 
     private RecordLab recordLab;
     private ArrayList<Record> recordList;
+
+    private Button recordButton;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -43,7 +47,12 @@ public class RankingActivity extends AppCompatActivity {
         recordList.add(new Record("Carmen", 12, 2));
         recordList.add(new Record("Iokese", 38, 4));
 
-        mAdapter = new RecordAdapter(recordList, RankingActivity.this);
+        mAdapter = new RecordAdapter(recordList, RankingActivity.this, new RecordAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(Record record) {
+                openRecordsActivity(record);
+            }
+        });
         recyclerView.setAdapter(mAdapter);
 
         if(recordList.isEmpty()) {
@@ -52,5 +61,11 @@ public class RankingActivity extends AppCompatActivity {
         else {
             recyclerView.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void openRecordsActivity(Record record) {
+        Intent recordsIntent = new Intent(this, RecordsActivity.class);
+        recordsIntent.putExtra("record", record);
+        startActivity(recordsIntent);
     }
 }
