@@ -2,6 +2,7 @@ package cat.tecnocampus.mobileapps.practica2.JoelRamosCano.SergioSanchezGonzalez
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,15 +28,22 @@ public class RankingActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Ranking");
 
         recyclerView = findViewById(R.id.rankingList);
-        recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new GridLayoutManager(RankingActivity.this, 1);
         recyclerView.setLayoutManager(layoutManager);
 
         recordLab = recordLab.getSingleton(this);
-        recordList = recordLab.getGames();
+        // recordList = recordLab.getGames();
 
-        mAdapter = new RecordAdapter(recordList, this);
+        recordList = new ArrayList<Record>();
+        recordList.add(new Record("Pepito", 20, 2));
+        recordList.add(new Record("Juanito", 50, 5));
+        recordList.add(new Record("Manolo", 24, 3));
+        recordList.add(new Record("Maria", 43, 5));
+        recordList.add(new Record("Carmen", 12, 2));
+        recordList.add(new Record("Iokese", 38, 4));
+
+        mAdapter = new RecordAdapter(recordList, RankingActivity.this);
         recyclerView.setAdapter(mAdapter);
 
         if(recordList.isEmpty()) {

@@ -2,48 +2,62 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recordCollectionLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/recordCollectionLayout">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_nickname"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/nickname"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_totalScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/totalscore"
-        app:layout_constraintStart_toEndOf="@+id/tv_nickname"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_nOfGames"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/nofgames"
-        app:layout_constraintStart_toEndOf="@+id/tv_totalScore"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/dv_divider"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
-        app:layout_constraintVertical_bias="0.019" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001">
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/nickname" />
+
+        <TextView
+            android:id="@+id/tv_nOfGames"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/nofgames" />
+
+        <TextView
+            android:id="@+id/tv_totalScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/totalscore" />
+
+        <Button
+            android:id="@+id/btn_recordButton"
+            android:layout_width="63dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            app:icon="?android:attr/actionModeFindDrawable"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <View
+            android:id="@+id/dv_divider"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:background="?android:attr/listDivider" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

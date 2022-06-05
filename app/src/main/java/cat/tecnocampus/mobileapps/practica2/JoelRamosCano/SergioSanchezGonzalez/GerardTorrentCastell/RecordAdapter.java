@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,14 +31,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.tv_nickname.setText(recordList.get(position).getPlayer());
-        holder.tv_totalScore.setText(String.valueOf(recordList.get(position).getTotalScore()));
-        holder.tv_nOfGames.setText(String.valueOf(recordList.get(position).getnOfGames()));
+        Record record = recordList.get(position);
+        holder.tv_nickname.setText(record.getPlayer());
+        holder.tv_totalScore.setText(String.valueOf(record.getTotalScore()));
+        holder.tv_nOfGames.setText(String.valueOf(record.getnOfGames()));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return recordList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -45,9 +47,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyViewHold
         TextView tv_nickname;
         TextView tv_totalScore;
         TextView tv_nOfGames;
+        private final Context context;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            context = itemView.getContext();
             tv_nickname = itemView.findViewById(R.id.tv_nickname);
             tv_totalScore = itemView.findViewById(R.id.tv_totalScore);
             tv_nOfGames = itemView.findViewById(R.id.tv_nOfGames);

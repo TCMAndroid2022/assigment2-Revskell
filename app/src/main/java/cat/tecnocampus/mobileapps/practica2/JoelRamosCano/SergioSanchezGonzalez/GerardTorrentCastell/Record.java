@@ -18,6 +18,12 @@ public class Record {
         this.scores = new ArrayList<Integer>();
     }
 
+    public Record(String player, int totalScore, int nOfGames) {
+        this.player = player;
+        this.totalScore = totalScore;
+        this.nOfGames = nOfGames;
+    }
+
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "record_id")
