@@ -44,6 +44,14 @@ public class Record {
         this.player = player;
     }
 
+    public String getPlayer() { return player; }
+
+    public ArrayList<Integer> getScores() { return scores; }
+
+    public int getTotalScore() { return totalScore; }
+
+    public int getnOfGames() { return nOfGames; }
+
     public void addScore(int score) {
         this.scores.add(score);
     }

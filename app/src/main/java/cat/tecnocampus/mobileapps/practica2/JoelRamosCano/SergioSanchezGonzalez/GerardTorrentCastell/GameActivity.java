@@ -30,7 +30,7 @@ public class GameActivity extends AppCompatActivity
     String finalWord;
     String playerWord;
     String url= "https://palabras-aleatorias-public-api.herokuapp.com/random";
-    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+    RequestQueue queue = Volley.newRequestQueue(getApplicationContext()); // peta
     int score=0;
     int lettersGuessed=0;
 
@@ -43,6 +43,7 @@ public class GameActivity extends AppCompatActivity
         game = getIntent().getParcelableExtra("game");
         setContentView(R.layout.activity_game);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Guess the word");
 
         editText = findViewById(R.id.solveWord);
         tvWord = findViewById(R.id.word);

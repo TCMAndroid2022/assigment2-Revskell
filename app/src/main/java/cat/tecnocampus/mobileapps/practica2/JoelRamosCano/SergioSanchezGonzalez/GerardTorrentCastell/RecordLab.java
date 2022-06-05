@@ -23,7 +23,7 @@ public class RecordLab {
         this.recordDAO = database.getGameDAO();
     }
 
-    public static RecordLab get(Context context) {
+    public static RecordLab getSingleton(Context context) {
         if(recordLab == null) recordLab = new RecordLab(context);
         return recordLab;
     }

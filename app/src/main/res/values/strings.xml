@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AplicacionsMobils_Practica2</string>
+    <string name="ranking">ranking</string>
+    <string name="nickname">nickname</string>
+    <string name="totalscore">totalScore</string>
+    <string name="nofgames">nOfGames</string>
 </resources>
