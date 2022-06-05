@@ -14,8 +14,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
 
 
 public class GameActivity extends AppCompatActivity
@@ -27,9 +30,9 @@ public class GameActivity extends AppCompatActivity
     String finalWord;
     String playerWord;
     String url= "https://palabras-aleatorias-public-api.herokuapp.com/random";
-    // RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
     int score=0;
-    int letterCount=0;
+    int lettersGuessed=0;
 
     private Game game;
     private RecordLab recordLab;
@@ -43,13 +46,15 @@ public class GameActivity extends AppCompatActivity
 
         editText = findViewById(R.id.solveWord);
         tvWord = findViewById(R.id.word);
-        /*
-        finalWord = getFinalWord();
+
+        getFinalWord();
+
         playerWord = "";
         for(int i=0; i<finalWord.length(); i++){
             playerWord+="_";
         }
-        */
+        tvWord.setText(playerWord);
+
     }
 
     @Override
@@ -64,9 +69,6 @@ public class GameActivity extends AppCompatActivity
         // desarrollar
     }
 
-    private void solve(){
-
-    }
 
     private void winGame() {
 
@@ -82,26 +84,19 @@ public class GameActivity extends AppCompatActivity
         startActivity(mainMenu);
     }
 
-    /*
-    String getFinalWord(){
-        JSONArray jsonArray_result = new JSONArray(queue);//Posiblemente mal, comprobar luego
-        jsonArray_result.length(); //Nº de registres
-        //Bucle per a agafar cada objecte JSON:
-        for (int i = 0; i<jsonArray_result.length(); i++)
-        {
-            JSONObject json_word =jsonArray_result.getJSONObject(i);
-            String name = json_word.getString("Word:");
-        }
-    }
-     */
 
-
-    public void stringClicked(View view) {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
+    public void getFinalWord(){
+        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
-                        Log.v("Test", response);
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject firstUser = response;
+                            JSONObject jsonResult=new JSONObject(firstUser.getString("body"));
+                            finalWord=jsonResult.getString("word");
+                        } catch (Exception ex) {
+                            Log.d("SwA", "Error parsing json array");
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -111,21 +106,29 @@ public class GameActivity extends AppCompatActivity
                     }
                 }
         );
-        // queue.add(stringRequest);
+        queue.add(jsonArrayRequest);
     }
+
+
 
     public void submitWord(View view) {
         String submittedWord=editText.getText().toString();
         if(submittedWord.length()==1){ //introduce una letra
+            char[] playerWordChar= playerWord.toCharArray();
             if(finalWord.indexOf(submittedWord)!=-1){
-                int position= finalWord.indexOf(submittedWord);
-                playerWord = playerWord.substring(0,position-1)+submittedWord+playerWord.substring(position+1);
-                //Si la palabra solo tiene 1 vez esta letra
-                letterCount++;
+                for(int i=0;i<playerWordChar.length;i++){
+                    if(Character.compare(finalWord.charAt(i),submittedWord.charAt(0))==0){
+                        playerWordChar[i]=submittedWord.charAt(0);
+                        lettersGuessed++;
+                    }
+                }
+                playerWord=playerWord.valueOf(playerWordChar);
+                tvWord.setText(playerWord);
             }
         }else{ //intenta resolver
             if(submittedWord== usedWord){
-                score= ((submittedWord.length()-letterCount)/submittedWord.length()*10);
+                score= ((submittedWord.length()-lettersGuessed)/submittedWord.length()*10);
+                winGame();
             }else{
                 score=0;
             }
