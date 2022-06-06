@@ -27,6 +27,13 @@ public class Record implements Parcelable {
         this.nOfGames = nOfGames;
     }
 
+    public Record(String player, int totalScore, int nOfGames, ArrayList<Integer> scores) {
+        this.player = player;
+        this.totalScore = totalScore;
+        this.nOfGames = nOfGames;
+        this.scores = scores;
+    }
+
     protected Record(Parcel in) {
         id = in.readString();
         player = in.readString();
@@ -62,7 +69,7 @@ public class Record implements Parcelable {
 
     public String getId() { return this.id; }
 
-    public int getScore() { return this.scores.get(scores.size()); } // quizas hay alguna mejor forma de hacerlo
+    public int getScore() { return this.scores.get(scores.size()); }
 
     public void setPlayer(String player) {
         this.player = player;

@@ -2,6 +2,7 @@ package cat.tecnocampus.mobileapps.practica2.JoelRamosCano.SergioSanchezGonzalez
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -28,6 +29,7 @@ public class RecordsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new RecordsAdapter(record, RecordsActivity.this);
+        recyclerView.setAdapter(mAdapter);
 
         if(record == null) recyclerView.setVisibility(View.GONE);
         else recyclerView.setVisibility(View.VISIBLE);

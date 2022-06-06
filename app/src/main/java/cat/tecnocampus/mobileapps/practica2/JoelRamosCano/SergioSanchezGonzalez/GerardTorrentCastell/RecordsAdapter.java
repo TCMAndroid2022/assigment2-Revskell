@@ -14,7 +14,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.RecordsH
     private Record record;
     private Context context;
 
-    public RecordsAdapter(Record record, Context context) {
+    public RecordsAdapter(@NonNull Record record, Context context) {
         this.record = record;
         this.context = context;
     }
@@ -34,7 +34,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.RecordsH
 
     @Override
     public int getItemCount() {
-        return 0;
+        return record.getScores().size();
     }
 
     public class RecordsHolder extends RecyclerView.ViewHolder {

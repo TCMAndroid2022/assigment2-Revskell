@@ -37,15 +37,7 @@ public class RankingActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         recordLab = recordLab.getSingleton(this);
-        // recordList = recordLab.getGames();
-
-        recordList = new ArrayList<Record>();
-        recordList.add(new Record("Pepito", 20, 2));
-        recordList.add(new Record("Juanito", 50, 5));
-        recordList.add(new Record("Manolo", 24, 3));
-        recordList.add(new Record("Maria", 43, 5));
-        recordList.add(new Record("Carmen", 12, 2));
-        recordList.add(new Record("Iokese", 38, 4));
+        recordList = recordLab.getGames();
 
         mAdapter = new RecordAdapter(recordList, RankingActivity.this, new RecordAdapter.OnItemClickListener() {
             @Override

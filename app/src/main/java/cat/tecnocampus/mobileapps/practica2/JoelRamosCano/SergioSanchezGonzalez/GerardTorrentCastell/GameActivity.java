@@ -2,10 +2,12 @@ package cat.tecnocampus.mobileapps.practica2.JoelRamosCano.SergioSanchezGonzalez
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +20,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 
@@ -25,10 +28,8 @@ public class GameActivity extends AppCompatActivity
 {
     EditText editText;
     TextView tvWord;
-    String usedWord;
     String finalWord;
     String playerWord;
-    String url= "https://random-word-api.herokuapp.com/word";
     RequestQueue queue;
     int score=0;
     int lettersGuessed=0;
@@ -50,8 +51,10 @@ public class GameActivity extends AppCompatActivity
 
         getFinalWord();
 
+        finalWord = tvWord.getText().toString();
+
         playerWord = "";
-        for(int i=0; i<finalWord.length(); i++){ // peta null pointer
+        for(int i=0; i < finalWord.length(); i++){
             playerWord+="_";
         }
         tvWord.setText(playerWord);
@@ -64,7 +67,6 @@ public class GameActivity extends AppCompatActivity
         outState.putInt("lettersGuessed", lettersGuessed);
         outState.putString("finalWord", finalWord);
         outState.putString("playerWord", playerWord);
-        outState.putString("usedWord", usedWord);
         outState.putParcelable("game", game);
     }
 
@@ -75,7 +77,6 @@ public class GameActivity extends AppCompatActivity
         lettersGuessed = savedInstanceState.getInt("lettersGuessed");
         finalWord = savedInstanceState.getString("finalWord");
         playerWord = savedInstanceState.getString("playerWord");
-        usedWord = savedInstanceState.getString("usedWord");
         game = savedInstanceState.getParcelable("game");
 
         tvWord.setText(playerWord);
@@ -98,13 +99,17 @@ public class GameActivity extends AppCompatActivity
 
 
     public void getFinalWord(){
+
+        String url = "https://palabras-aleatorias-public-api.herokuapp.com/random";
+
         JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONObject firstUser = response;
-                            finalWord=firstUser.toString();
+                            JSONObject body = response.getJSONObject("body");
+                            String word = body.getString("Word");
+                            tvWord.setText(word);
                         } catch (Exception ex) {
                             Log.d("SwA", "Error parsing json array");
                         }
@@ -113,7 +118,7 @@ public class GameActivity extends AppCompatActivity
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("SwA", "Error in request ");
+                        error.printStackTrace();
                     }
                 }
         );
@@ -121,7 +126,7 @@ public class GameActivity extends AppCompatActivity
     }
 
     public void submitWord(View view) {
-        String submittedWord=editText.getText().toString();
+        String submittedWord = editText.getText().toString();
         if(submittedWord.length()==1){ //introduce una letra
             char[] playerWordChar= playerWord.toCharArray();
             if(finalWord.indexOf(submittedWord)!=-1){
@@ -134,8 +139,9 @@ public class GameActivity extends AppCompatActivity
                 playerWord=playerWord.valueOf(playerWordChar);
                 tvWord.setText(playerWord);
             }
-        }else{ //intenta resolver
-            if(submittedWord == usedWord){
+        }
+        else { //intenta resolver
+            if(submittedWord.equals(finalWord)){
                 score= ((submittedWord.length()-lettersGuessed)/submittedWord.length()*10);
                 winGame();
             }else{

@@ -51,13 +51,6 @@
             app:icon="?android:attr/actionModeFindDrawable"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <View
-            android:id="@+id/dv_divider"
-            android:layout_width="409dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="24dp"
-            android:background="?android:attr/listDivider" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
