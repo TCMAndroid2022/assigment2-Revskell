@@ -4,15 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
-public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyViewHolder> {
+public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordHolder> {
 
     private ArrayList<Record> recordList;
     private Context context;
@@ -30,14 +28,14 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyViewHold
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecordHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.record_collection, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
+        RecordHolder holder = new RecordHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecordHolder holder, int position) {
         holder.bindData(recordList.get(position));
     }
 
@@ -46,14 +44,14 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyViewHold
         return recordList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class RecordHolder extends RecyclerView.ViewHolder {
 
         TextView tv_nickname;
         TextView tv_totalScore;
         TextView tv_nOfGames;
         private final Context context;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public RecordHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
             tv_nickname = itemView.findViewById(R.id.tv_nickname);
