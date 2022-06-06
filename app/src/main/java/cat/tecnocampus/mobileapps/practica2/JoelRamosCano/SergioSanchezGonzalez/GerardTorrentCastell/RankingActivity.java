@@ -55,12 +55,8 @@ public class RankingActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(mAdapter);
 
-        if(recordList.isEmpty()) {
-            recyclerView.setVisibility(View.GONE);
-        }
-        else {
-            recyclerView.setVisibility(View.VISIBLE);
-        }
+        if(recordList.isEmpty()) recyclerView.setVisibility(View.GONE);
+        else recyclerView.setVisibility(View.VISIBLE);
     }
 
     public void openRecordsActivity(Record record) {

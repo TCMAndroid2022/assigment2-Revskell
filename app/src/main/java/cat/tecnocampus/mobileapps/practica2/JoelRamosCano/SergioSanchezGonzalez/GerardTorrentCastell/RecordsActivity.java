@@ -10,5 +10,7 @@ public class RecordsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
+        Record record = getIntent().getParcelableExtra("record");
+        getSupportActionBar().setTitle(record.getPlayer());
     }
 }

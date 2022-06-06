@@ -25,17 +25,15 @@ public class GameActivity extends AppCompatActivity
 {
     EditText editText;
     TextView tvWord;
-    String username;
     String usedWord;
     String finalWord;
     String playerWord;
     String url= "https://palabras-aleatorias-public-api.herokuapp.com/random";
-    RequestQueue queue = Volley.newRequestQueue(getApplicationContext()); // peta
+    RequestQueue queue;
     int score=0;
     int lettersGuessed=0;
 
     private Game game;
-    private RecordLab recordLab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,26 +46,40 @@ public class GameActivity extends AppCompatActivity
         editText = findViewById(R.id.solveWord);
         tvWord = findViewById(R.id.word);
 
-        getFinalWord();
+        queue = Volley.newRequestQueue(this);
+
+        // getFinalWord();
+        finalWord = "tulipan";
 
         playerWord = "";
-        for(int i=0; i<finalWord.length(); i++){
+        for(int i=0; i<finalWord.length(); i++){ // peta null pointer
             playerWord+="_";
         }
         tvWord.setText(playerWord);
-
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        // desarrollar
+        outState.putInt("score", score);
+        outState.putInt("lettersGuessed", lettersGuessed);
+        outState.putString("finalWord", finalWord);
+        outState.putString("playerWord", playerWord);
+        outState.putString("usedWord", usedWord);
+        outState.putParcelable("game", game);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        // desarrollar
+        score = savedInstanceState.getInt("score");
+        lettersGuessed = savedInstanceState.getInt("lettersGuessed");
+        finalWord = savedInstanceState.getString("finalWord");
+        playerWord = savedInstanceState.getString("playerWord");
+        usedWord = savedInstanceState.getString("usedWord");
+        game = savedInstanceState.getParcelable("game");
+
+        tvWord.setText(playerWord);
     }
 
 
@@ -110,8 +122,6 @@ public class GameActivity extends AppCompatActivity
         queue.add(jsonArrayRequest);
     }
 
-
-
     public void submitWord(View view) {
         String submittedWord=editText.getText().toString();
         if(submittedWord.length()==1){ //introduce una letra
@@ -127,7 +137,7 @@ public class GameActivity extends AppCompatActivity
                 tvWord.setText(playerWord);
             }
         }else{ //intenta resolver
-            if(submittedWord== usedWord){
+            if(submittedWord == usedWord){
                 score= ((submittedWord.length()-lettersGuessed)/submittedWord.length()*10);
                 winGame();
             }else{
