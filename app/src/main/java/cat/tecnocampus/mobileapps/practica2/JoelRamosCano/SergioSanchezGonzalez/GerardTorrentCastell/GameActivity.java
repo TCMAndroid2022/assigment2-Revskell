@@ -28,7 +28,7 @@ public class GameActivity extends AppCompatActivity
     String usedWord;
     String finalWord;
     String playerWord;
-    String url= "https://palabras-aleatorias-public-api.herokuapp.com/random";
+    String url= "https://random-words-api.vercel.app/word";
     RequestQueue queue;
     int score=0;
     int lettersGuessed=0;
@@ -48,8 +48,7 @@ public class GameActivity extends AppCompatActivity
 
         queue = Volley.newRequestQueue(this);
 
-        // getFinalWord();
-        finalWord = "tulipan";
+        getFinalWord();
 
         playerWord = "";
         for(int i=0; i<finalWord.length(); i++){ // peta null pointer
@@ -105,8 +104,7 @@ public class GameActivity extends AppCompatActivity
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject firstUser = response;
-                            JSONObject jsonResult=new JSONObject(firstUser.getString("body"));
-                            finalWord=jsonResult.getString("word");
+                            finalWord=firstUser.getString("word").toString();
                         } catch (Exception ex) {
                             Log.d("SwA", "Error parsing json array");
                         }
