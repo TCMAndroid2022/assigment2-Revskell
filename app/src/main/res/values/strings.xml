@@ -4,4 +4,6 @@
     <string name="nickname">nickname</string>
     <string name="totalscore">totalScore</string>
     <string name="nofgames">nOfGames</string>
+    <string name="submit">submit</string>
+    <string name="login"> Enter your name to login:</string>
 </resources>

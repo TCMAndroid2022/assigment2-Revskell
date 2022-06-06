@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AplicacionesMobiles_Practica2</string>
+    <string name="ranking">Clasificacion</string>
+    <string name="nickname">Apodo</string>
+    <string name="totalscore">Puntuacion</string>
+    <string name="nofgames">Partidas</string>
+    <string name="submit">Enviar</string>
+    <string name="login"> Introduce tu nombre para jugar:</string>
+
+</resources>
