@@ -28,7 +28,7 @@ public class GameActivity extends AppCompatActivity
     String usedWord;
     String finalWord;
     String playerWord;
-    String url= "https://random-words-api.vercel.app/word";
+    String url= "https://random-word-api.herokuapp.com/word";
     RequestQueue queue;
     int score=0;
     int lettersGuessed=0;
@@ -104,7 +104,7 @@ public class GameActivity extends AppCompatActivity
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject firstUser = response;
-                            finalWord=firstUser.getString("word").toString();
+                            finalWord=firstUser.toString();
                         } catch (Exception ex) {
                             Log.d("SwA", "Error parsing json array");
                         }
